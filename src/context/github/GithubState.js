@@ -12,6 +12,17 @@ import {
   SET_LOADING,
 } from "../types";
 
+let githubClientId;
+let githubClientSecret;
+
+if (process.env.NODE_ENV !== "production") {
+  githubClientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
+  githubClientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+} else {
+  githubClientId = process.env.GITHUB_CLIENT_ID;
+  githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
+}
+
 const GithubState = (props) => {
   const alertContext = useContext(AlertContext);
 
@@ -27,7 +38,7 @@ const GithubState = (props) => {
   const searchOrganizations = async (text) => {
     setLoading();
     const response = await axios.get(
-      `https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      `https://api.github.com/search/users?q=${text}&client_id=${githubClientId}&client_secret=${githubClientSecret}`
     );
     const data = response.data.items;
     const onlyOrgs = data.filter((f) => f.type === "Organization");
@@ -45,7 +56,7 @@ const GithubState = (props) => {
   const getOrganization = async (organizationName) => {
     setLoading();
     const response = await axios.get(
-      `https://api.github.com/orgs/${organizationName}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      `https://api.github.com/orgs/${organizationName}?client_id=${githubClientId}&client_secret=${githubClientSecret}`
     );
     dispatch({
       type: GET_ORGANIZATION,
@@ -56,7 +67,7 @@ const GithubState = (props) => {
   const getOrganizationRepos = async (organizationName) => {
     setLoading();
     const response = await axios.get(
-      `https://api.github.com/orgs/${organizationName}/repos?sort=updated:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      `https://api.github.com/orgs/${organizationName}/repos?sort=updated:asc&client_id=${githubClientId}&client_secret=${githubClientSecret}`
     );
     dispatch({
       type: GET_REPOS,
