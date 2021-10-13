@@ -67,7 +67,7 @@ const GithubState = (props) => {
   const getOrganizationRepos = async (organizationName) => {
     setLoading();
     const response = await axios.get(
-      `https://api.github.com/orgs/${organizationName}/repos?sort=updated:asc&client_id=${githubClientId}&client_secret=${githubClientSecret}`
+      `https://api.github.com/orgs/${organizationName}/repos?per_page=100&sort=updated&client_id=${githubClientId}&client_secret=${githubClientSecret}`
     );
     dispatch({
       type: GET_REPOS,

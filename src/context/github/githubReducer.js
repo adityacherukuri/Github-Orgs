@@ -21,13 +21,12 @@ export default (state, action) => {
         organization: action.payload,
         loading: false,
       };
-    case GET_REPOS: {
+    case GET_REPOS:
       return {
         ...state,
         repos: action.payload,
         loading: false,
       };
-    }
     case SET_LOADING:
       return {
         ...state,

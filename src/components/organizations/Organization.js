@@ -75,10 +75,7 @@ const Organization = ({ match }) => {
             </ul>
           </div>
         </div>
-        <h3 style={{ marginTop: "30px" }}>
-          Public Repos: {repos.length === 0 && repos.length}
-        </h3>
-        <Repos repos={repos} />
+        <Repos repos={repos} login={login} />
       </Fragment>
     );
   }

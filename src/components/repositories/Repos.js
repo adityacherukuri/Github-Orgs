@@ -1,22 +1,24 @@
-import React, { useContext } from "react";
+import React, { Fragment, useContext } from "react";
 import ReposItem from "./ReposItem";
 import PropTypes from "prop-types";
 import Spinner from "../Spinner";
 
 import GithubContext from "../../context/github/githubContext";
 
-const Repos = ({ repos }) => {
+const Repos = ({ repos, login }) => {
   const githubContext = useContext(GithubContext);
   const { loading } = githubContext;
   if (loading) {
     return <Spinner />;
   } else {
     return (
-      <div className="wrapper">
-        {repos.map((repo) => (
-          <ReposItem repo={repo} key={repo.id} />
-        ))}
-      </div>
+      <Fragment>
+        <div className="wrapper">
+          {repos.map((repo) => (
+            <ReposItem repo={repo} login={login} key={repo.id} />
+          ))}
+        </div>
+      </Fragment>
     );
   }
 };
